@@ -1,0 +1,15 @@
+.code {
+    display: block;
+    width: 100%;
+    padding: 2rem 3rem;
+    background-color: $color-primary-dark;
+    color: $color-white;
+    font-size: 2.5rem;
+    font-family: monospace;
+
+    &--small {
+        display: inline;
+        padding: 0.5rem 0.5rem;
+    }
+
+}

@@ -1,0 +1,44 @@
+.navigation {
+    position: fixed;
+    top: 6rem;
+    left: 0;
+    z-index: 10;
+    overflow: auto overlay;
+    background-color: $color-white;
+    height: 100%;
+    box-shadow: 0rem 1rem 3rem rgba($color-black, 0.5);
+    transition: all 0.3s;
+
+    // &__nav {
+
+    // }
+
+    // &__list {
+
+    // }
+
+    &__item {
+        display: block;
+        font-size: 3rem;
+    }
+
+    &__link {
+        display: inline-block;
+        text-decoration: none;
+        color: $color-primary-dark;
+        padding: 2rem 3rem;
+        width: 100%;
+        font-weight: 700;
+        animation-timing-function: cubic-bezier(0,.51,0,1.03);
+        transition: all 0.4s;
+
+        
+        &:hover {
+            background-color: rgba($color-secondry-light, 0.3);
+        }
+
+        &:active {
+            background-color: rgba($color-secondry-light, 0.5);
+        }
+    }
+}

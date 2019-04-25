@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:500,700,900" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" href="css/icon-font.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+
+
+    <title id="title">Git Documentation</title>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header__logo-box">
+            <div class="header__logo">Git Documentation</div>
+        </div>
+        <div class="header__img-box">
+            <img class="header__img" src="img/Git-Logo-White.png" alt="Git Logo">
+        </div>
+    </header>
+
+    <div class="navigation" id="navigation-menu">
+        <nav class="navigation__nav">
+            <ul class="navigation__list">
+                <li class="navigation__item"><a id="link-1" class="navigation__link" href="#">Introduction</a></li>
+                <li class="navigation__item"><a id="link-2" class="navigation__link" href="#">Importing a new
+                        project</a></li>
+                <li class="navigation__item"><a id="link-3" class="navigation__link" href="#">Making changes</a></li>
+                <li class="navigation__item"><a id="link-4" class="navigation__link" href="#">Viewing project
+                        history</a></li>
+                <li class="navigation__item"><a id="link-5" class="navigation__link" href="#">Managing branches</a></li>
+                <li class="navigation__item"><a id="link-6" class="navigation__link" href="#">Git for collaboration</a>
+                </li>
+                <li class="navigation__item"><a id="link-7" class="navigation__link" href="#">Exploring history</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <main id="main-doc" class="main">
+
+        <div class="section-page" id="sec-1">
+            <div class="heading-primary u-center-text u-margin-bottom-large">
+                <h1>Introduction</h1>
+            </div>
+            <p class="paragraph">This tutorial explains how to import a new project into Git, make changes to it, and
+                share changes with other developers.</p>
+            <p class="paragraph">If you are instead primarily interested in using Git to fetch a project, for example,
+                to test the latest version, you may prefer to start with the first two chapters of The Git User’s
+                Manual.</p>
+            <p class="paragraph">First, note that you can get documentation for a command such as git log --graph with:
+            </p>
+
+            <div class="code u-margin-bottom-medium">$ man git-log</div>
+            <p class="paragraph">or:</p>
+            <div class="code u-margin-bottom-medium">$ git help log</div>
+            <p class="paragraph">With the latter, you can use the manual viewer of your choice; see git-help[1] for more
+                information.</p>
+            <p class="paragraph">It is a good idea to introduce yourself to Git with your name and public email address
+                before doing any operation. The easiest way to do so is:</p>
+            <div class="code u-margin-bottom-medium">
+                $ git config --global user.name "Your Name Comes Here"
+                <br>
+                $ git config --global user.email you@yourdomain.example.com
+            </div>
+        </div>
+
+        <div class="section-page" id="sec-2">
+            <div class="heading-primary u-center-text u-margin-bottom-large">
+                <h1>Importing a new project</h1>
+            </div>
+            <p class="paragraph">Assume you have a tarball project.tar.gz with your initial work. You can place it under
+                Git revision control as follows.</p>
+            <div class="code u-margin-bottom-medium">
+                $ tar xzf project.tar.gz
+                <br>
+                $ cd project
+                <br>
+                $ git init
+            </div>
+            <p class="paragraph">Git will reply</p>
+            <div class="code u-margin-bottom-medium">Initialized empty Git repository in .git/</div>
+            <p class="paragraph">You’ve now initialized the working directory—​you may notice a new directory created,
+                named ".git".</p>
+            <p class="paragraph">Next, tell Git to take a snapshot of the contents of all files under the current
+                directory (note the .), with git add:</p>
+            <div class="code u-margin-bottom-medium">$ git add .</div>
+            <p class="paragraph">This snapshot is now stored in a temporary staging area which Git calls the "index".
+                You can permanently store the contents of the index in the repository with git commit:</p>
+            <div class="code u-margin-bottom-medium">$ git commit</div>
+            <p class="paragraph">This will prompt you for a commit message. You’ve now stored the first version of your
+                project in Git.</p>
+        </div>
+
+        <div class="section-page" id="sec-3">
+            <div class="heading-primary u-center-text u-margin-bottom-large">
+                <h1>Making changes</h1>
+            </div>
+            <p class="paragraph">Modify some files, then add their updated contents to the index:</p>
+            <div class="code u-margin-bottom-medium">
+                $ git add file1 file2 file3
+            </div>
+            <p class="paragraph">You are now ready to commit. You can see what is about to be committed using git diff
+                with the --cached option:</p>
+            <div class="code u-margin-bottom-medium">$ git diff --cached</div>
+            <p class="paragraph">(Without --cached, git diff will show you any changes that you’ve made but not yet
+                added to the index.) You can also get a brief summary of the situation with git status:</p>
+            <div class="code u-margin-bottom-medium">$ git status
+                <br>
+                On branch master
+                <br>
+                Changes to be committed:
+                <br>
+                Your branch is up to date with 'origin/master'.
+                <br>
+                &nbsp;&nbsp;(use "git reset HEAD <file>..." to unstage)
+                    <br>
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modified:&nbsp;&nbsp;&nbsp;file1
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modified:&nbsp;&nbsp;&nbsp;file2
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;modified:&nbsp;&nbsp;&nbsp;file3
+            </div>
+            <p class="paragraph">If you need to make any further adjustments, do so now, and then add any newly modified
+                content to the index. Finally, commit your changes with:</p>
+            <div class="code u-margin-bottom-medium">$ git commit</div>
+            <p class="paragraph">This will again prompt you for a message describing the change, and then record a new
+                version of the project.</p>
+            <p class="paragraph">Alternatively, instead of running git add beforehand, you can use</p>
+            <div class="code u-margin-bottom-medium">$ git commit -a</div>
+            <p class="paragraph">which will automatically notice any modified (but not new) files, add them to the
+                index, and commit, all in one step.</p>
+            <p class="paragraph"><span class="paragraph__note">A note on commit messages:</span> Though not required,
+                it’s a good idea to begin the commit message with a single short (less than 50 character) line
+                summarizing the change, followed by a blank line and then a more thorough description. The text up to
+                the first blank line in a commit message is treated as the commit title, and that title is used
+                throughout Git. For example, git-format-patch turns a commit into email, and it uses the title on the
+                Subject line and the rest of the commit in the body.</p>
+        </div>
+
+        <div class="section-page" id="sec-4">
+
+            <div class="heading-primary u-center-text u-margin-bottom-large">
+                <h1>Viewing project history</h1>
+            </div>
+            <p class="paragraph">At any point you can view the history of your changes using</p>
+            <div class="code u-margin-bottom-medium">
+                $ git log
+            </div>
+            <p class="paragraph">If you also want to see complete diffs at each step, use</p>
+            <div class="code u-margin-bottom-medium">$ git log -p</div>
+            <p class="paragraph">Often the overview of the change is useful to get a feel of each step</p>
+            <div class="code">$ git log --stat --summary</div>
+        </div>
+
+        <div class="section-page" id="sec-5">
+
+            <div class="heading-primary u-center-text u-margin-bottom-large">
+                <h1>Managing branches</h1>
+            </div>
+            <p class="paragraph">A single Git repository can maintain multiple branches of development. To create a
+                new branch named "experimental", use</p>
+            <div class="code u-margin-bottom-medium">
+                $ git branch experimental
+            </div>
+            <p class="paragraph">If you now run</p>
+            <div class="code u-margin-bottom-medium">$ git branch</div>
+            <p class="paragraph">you’ll get a list of all existing branches:</p>
+            <div class="code u-margin-bottom-medium">
+                experimental
+                <br>
+                * master
+            </div>
+
+
+            <p class="paragraph">The "experimental" branch is the one you just created, and the "master" branch is a
+                default branch that was created for you automatically. The asterisk marks the branch you are
+                currently on; type</p>
+            <div class="code u-margin-bottom-medium">
+                $ git checkout experimental
+            </div>
+            <p class="paragraph">to switch to the experimental branch. Now edit a file, commit the change, and
+                switch back to the master branch:</p>
+            <div class="code u-margin-bottom-medium">
+                (edit file)
+                $ git commit -a
+                $ git checkout master</div>
+            <p class="paragraph">you’ll get a list of all existing branches:</p>
+            <div class="code u-margin-bottom-medium">
+                experimental
+                <br>
+                * master
+            </div>
+
+            <p class="paragraph">Check that the change you made is no longer visible, since it was made on the
+                experimental branch and you’re back on the master branch.</p>
+            <p class="paragraph">You can make a different change on the master branch:</p>
+            <div class="code u-margin-bottom-medium">
+                (edit file)
+                <br>
+                $ git commit -a
+            </div>
+            <p class="paragraph">at this point the two branches have diverged, with different changes made in each.
+                To merge the changes made in experimental into master, run</p>
+            <div class="code u-margin-bottom-medium">
+                $ git merge experimental
+            </div>
+            <p class="paragraph">If the changes don’t conflict, you’re done. If there are conflicts, markers will be
+                left in the problematic files showing the conflict;</p>
+            <div class="code u-margin-bottom-medium">
+                $ git diff
+            </div>
+
+            <p class="paragraph">will show this. Once you’ve edited the files to resolve the conflicts,</p>
+            <div class="code u-margin-bottom-medium">
+                $ git commit -a
+            </div>
+            <p class="paragraph">will commit the result of the merge. Finally,</p>
+            <div class="code u-margin-bottom-medium">
+                $ gitk
+            </div>
+            <p class="paragraph">will show a nice graphical representation of the resulting history.</p>
+            <p class="paragraph">At this point you could delete the experimental branch with</p>
+            <div class="code u-margin-bottom-medium">
+                $ git branch -d experimental
+            </div>
+
+            <p class="paragraph">This command ensures that the changes in the experimental branch are already in the
+                current branch.</p>
+            <p class="paragraph">If you develop on a branch crazy-idea, then regret it, you can always delete the
+                branch with</p>
+            <div class="code u-margin-bottom-medium">
+                $ git branch -D crazy-idea
+            </div>
+            <p class="paragraph">Branches are cheap and easy, so this is a good way to try something out.</p>
+        </div>
+
+        <div class="section-page" id="sec-6">
+            <div class="heading-primary u-center-text u-margin-bottom-large">
+                <h1>Managing branches</h1>
+            </div>
+            <p class="paragraph">Suppose that Alice has started a new project with a Git repository in
+                /home/alice/project, and that Bob, who has a home directory on the same machine, wants to contribute.
+            </p>
+            <p class="paragraph">Bob begins with:</p>
+            <div class="code u-margin-bottom-medium">bob$ git clone /home/alice/project myrepo</div>
+            <p class="paragraph">This creates a new directory "myrepo" containing a clone of Alice’s repository. The
+                clone is on an equal footing with the original project, possessing its own copy of the original
+                project’s history.</p>
+            <p class="paragraph">Bob then makes some changes and commits them:</p>
+
+            <div class="code u-margin-bottom-medium">
+                (edit files)
+                <br>
+                bob$ git commit -a
+                <br>
+                (repeat as necessary)
+            </div>
+
+
+            <p class="paragraph">When he’s ready, he tells Alice to pull changes from the repository at
+                /home/bob/myrepo. She does this with:</p>
+            <div class="code u-margin-bottom-medium">
+                alice$ cd /home/alice/project
+                <br>
+                alice$ git pull /home/bob/myrepo master
+            </div>
+            <p class="paragraph">This merges the changes from Bob’s "master" branch into Alice’s current branch. If
+                Alice has made her own changes in the meantime, then she may need to manually fix any conflicts.</p>
+            <div class="code u-margin-bottom-medium">$ git branch</div>
+            <p class="paragraph">The "pull" command thus performs two operations: it fetches changes from a remote
+                branch, then merges them into the current branch.</p>
+            <p class="paragraph">Note that in general, Alice would want her local changes committed before initiating
+                this "pull". If Bob’s work conflicts with what Alice did since their histories forked, Alice will use
+                her working tree and the index to resolve conflicts, and existing local changes will interfere with the
+                conflict resolution process (Git will still perform the fetch but will refuse to merge --- Alice will
+                have to get rid of her local changes in some way and pull again when this happens).</p>
+            <p class="paragraph">Alice can peek at what Bob did without merging first, using the "fetch" command; this
+                allows Alice to inspect what Bob did, using a special symbol "FETCH_HEAD", in order to determine if he
+                has anything worth pulling, like this:</p>
+            <div class="code u-margin-bottom-medium">
+                alice$ git fetch /home/bob/myrepo master
+                <br>
+                alice$ git log -p HEAD..FETCH_HEAD
+            </div>
+            <p class="paragraph">This operation is safe even if Alice has uncommitted local changes. The range notation
+                "HEAD..FETCH_HEAD" means "show everything that is reachable from the FETCH_HEAD but exclude anything
+                that is reachable from HEAD". Alice already knows everything that leads to her current state (HEAD), and
+                reviews what Bob has in his state (FETCH_HEAD) that she has not seen with this command.</p>
+            <p class="paragraph">If Alice wants to visualize what Bob did since their histories forked she can issue the
+                following command:</p>
+            <div class="code u-margin-bottom-medium">$ gitk HEAD..FETCH_HEAD</div>
+            <p class="paragraph">This uses the same two-dot range notation we saw earlier with git log.</p>
+            <p class="paragraph">Alice may want to view what both of them did since they forked. She can use three-dot
+                form instead of the two-dot form:</p>
+            <div class="code u-margin-bottom-medium">
+                $ gitk HEAD...FETCH_HEAD
+            </div>
+            <p class="paragraph">This means "show everything that is reachable from either one, but exclude anything
+                that is reachable from both of them".</p>
+            <p class="paragraph">Please note that these range notation can be used with both gitk and "git log".</p>
+            <p class="paragraph">After inspecting what Bob did, if there is nothing urgent, Alice may decide to continue
+                working without pulling from Bob. If Bob’s history does have something Alice would immediately need,
+                Alice may choose to stash her work-in-progress first, do a "pull", and then finally unstash her
+                work-in-progress on top of the resulting history.</p>
+            <p class="paragraph">When you are working in a small closely knit group, it is not unusual to interact with
+                the same repository over and over again. By defining remote repository shorthand, you can make it
+                easier:</p>
+            <div class="code u-margin-bottom-medium">alice$ git remote add bob /home/bob/myrepo</div>
+            <p class="paragraph">With this, Alice can perform the first part of the "pull" operation alone using the git
+                fetch command without merging them with her own branch, using:</p>
+            <p class="paragraph">Alice may want to view what both of them did since they forked. She can use three-dot
+                form instead of the two-dot form:</p>
+            <div class="code u-margin-bottom-medium">
+                alice$ git fetch bob
+            </div>
+            <p class="paragraph">Unlike the longhand form, when Alice fetches from Bob using a remote repository
+                shorthand set up with git remote, what was fetched is stored in a remote-tracking branch, in this case
+                <span class="code code--small">bob/master</span>. So after this:</p>
+            <div class="code u-margin-bottom-medium">alice$ git log -p master..bob/master</div>
+            <p class="paragraph">shows a list of all the changes that Bob made since he branched from Alice’s master
+                branch.</p>
+            <p class="paragraph">After examining those changes, Alice could merge the changes into her master branch:
+            </p>
+            <div class="code u-margin-bottom-medium">
+                alice$ git merge bob/master
+            </div>
+            <p class="paragraph">This <span class="code code--small">merge</span> can also be done by pulling from her
+                own remote-tracking branch, like this:</p>
+            <div class="code u-margin-bottom-medium">alice$ git pull . remotes/bob/master</div>
+            <p class="paragraph">Note that git pull always merges into the current branch, regardless of what else is
+                given on the command line.</p>
+            <p class="paragraph">Later, Bob can update his repo with Alice’s latest changes using</p>
+            <div class="code u-margin-bottom-medium">
+                bob$ git pull
+            </div>
+            <p class="paragraph">Note that he doesn’t need to give the path to Alice’s repository; when Bob cloned
+                Alice’s repository, Git stored the location of her repository in the repository configuration, and that
+                location is used for pulls:</p>
+            <p class="paragraph">Please note that these range notation can be used with both gitk and "git log".</p>
+
+            <div class="code u-margin-bottom-medium">
+                bob$ git config --get remote.origin.url
+                <br>
+                /home/alice/project
+            </div>
+            <p class="paragraph">(The complete configuration created by git clone is visible using <span
+                    class="code code--small">git config -l</span>, and the git-config man page explains the meaning of
+                each option.)</p>
+            <p class="paragraph">Git also keeps a pristine copy of Alice’s master branch under the name "origin/master":
+            </p>
+            <div class="code u-margin-bottom-medium">
+                bob$ git branch -r
+                <br>
+                &nbsp;&nbsp;origin/master
+            </div>
+            <p class="paragraph">Alternatively, Git has a native protocol, or can use http; see git-pull for details.
+            </p>
+            <p class="paragraph">Git can also be used in a CVS-like mode, with a central repository that various users
+                push changes to; see git-push and gitcvs-migration.</p>
+        </div>
+
+        <div class="section-page" id="sec-7">
+            <div class="heading-primary u-center-text u-margin-bottom-large">
+                <h1>Exploring history</h1>
+            </div>
+            <p class="paragraph">Git history is represented as a series of interrelated commits. We have already seen that the git log command can list those commits. Note that first line of each git log entry also gives a name for the commit:</p>
+            <div class="code u-margin-bottom-medium">
+                $ git log
+                <br>
+                commit c82a22c39cbc32576f64f5c6b3f24b99ea8149c7
+                <br>
+                Author: Junio C Hamano <junkio@cox.net>
+                    <br>
+                    Date:&nbsp;&nbsp;&nbsp;Tue May 16 17:18:22 2006 -0700
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;merge-base: Clarify the comments on post processing.
+            </div>
+            <p class="paragraph">We can give this name to git show to see the details about this commit.</p>
+            <p class="paragraph">Bob then makes some changes and commits them:</p>
+
+            <div class="code u-margin-bottom-medium">
+                $ git show c82a22c39cbc32576f64f5c6b3f24b99ea8149c
+            </div>
+            <p class="paragraph">But there are other ways to refer to commits. You can use any initial part of the name
+                that is long enough to uniquely identify the commit:</p>
+            <pre class="code u-margin-bottom-medium">
+$ git show c82a22c39c	# the first few characters of the name are
+                        # usually enough
+$ git show HEAD		# the tip of the current branch
+$ git show experimental	# the tip of the "experimental" branch
+                </pre>
+            <p class="paragraph">Every commit usually has one "parent" commit which points to the previous state of the
+                project:</p>
+            <pre class="code u-margin-bottom-medium">
+$ git show HEAD^  # to see the parent of HEAD
+$ git show HEAD^^ # to see the grandparent of HEAD
+$ git show HEAD~4 # to see the great-great grandparent of HEAD
+                </pre>
+            <p class="paragraph">Note that merge commits may have more than one parent:</p>
+            <pre class="code u-margin-bottom-medium">
+$ git show HEAD^1 # show the first parent of HEAD (same as HEAD^)
+$ git show HEAD^2 # show the second parent of HEAD
+                </pre>
+            <p class="paragraph">You can also give commits names of your own; after running</p>
+            <div class="code u-margin-bottom-medium">
+                $ git tag v2.5 1b2e1d63ff
+            </div>
+            <p class="paragraph">you can refer to 1b2e1d63ff by the name "v2.5". If you intend to share this name with
+                other people (for example, to identify a release version), you should create a "tag" object, and perhaps
+                sign it; see git-tag[1] for details.</p>
+            <p class="paragraph">Any Git command that needs to know a commit can take any of these names. For example:
+            </p>
+            <pre class="code u-margin-bottom-medium">
+$ git diff v2.5 HEAD	 # compare the current HEAD to v2.5
+$ git branch stable v2.5 # start a new branch named "stable" based
+                         # at v2.5
+$ git reset --hard HEAD^ # reset your current branch and working
+                         # directory to its state at HEAD^
+                </pre>
+            <p class="paragraph">Be careful with that last command: in addition to losing any changes in the working
+                directory, it will also remove all later commits from this branch. If this branch is the only branch
+                containing those commits, they will be lost. Also, don’t use git reset on a publicly-visible branch that
+                other developers pull from, as it will force needless merges on other developers to clean up the
+                history. If you need to undo changes that you have pushed, use git revert instead.</p>
+            <p class="paragraph">The git grep command can search for strings in any version of your project, so</p>
+            <div class="code u-margin-bottom-medium">
+                $ git grep "hello" v2.5
+            </div>
+            <p class="paragraph">searches for all occurrences of "hello" in v2.5.</p>
+            <p class="paragraph">If you leave out the commit name, git grep will search any of the files it manages in
+                your current directory. So</p>
+
+            <div class="code u-margin-bottom-medium">
+                $ git grep "hello"
+            </div>
+            <p class="paragraph">is a quick way to search just the files that are tracked by Git.</p>
+            <p class="paragraph">Many Git commands also take sets of commits, which can be specified in a number of
+                ways. Here are some examples with git log:</p>
+            <p class="paragraph">Any Git command that needs to know a commit can take any of these names. For example:
+            </p>
+            <pre class="code u-margin-bottom-medium">
+$ git log v2.5..v2.6            # commits between v2.5 and v2.6
+$ git log v2.5..                # commits since v2.5
+$ git log --since="2 weeks ago" # commits from the last 2 weeks
+$ git log v2.5.. Makefile       # commits since v2.5 which modify
+                                # Makefile
+                </pre>
+            <p class="paragraph">You can also give git log a "range" of commits where the first is not necessarily an
+                ancestor of the second; for example, if the tips of the branches "stable" and "master" diverged from a
+                common commit some time ago, then</p>
+            <div class="code u-margin-bottom-medium">
+                $ git log stable..master
+            </div>
+            <p class="paragraph">will list commits made in the master branch but not in the stable branch, while</p>
+            <div class="code u-margin-bottom-medium">
+                $ git log master..stable
+            </div>
+            <p class="paragraph">will show the list of commits made on the stable branch but not the master branch.</p>
+            <p class="paragraph">The git log command has a weakness: it must present commits in a list. When the history
+                has lines of development that diverged and then merged back together, the order in which git log
+                presents those commits is meaningless.</p>
+            <p class="paragraph">Most projects with multiple contributors (such as the Linux kernel, or Git itself) have
+                frequent merges, and gitk does a better job of visualizing their history. For example,</p>
+            <div class="code u-margin-bottom-medium">
+                $ gitk --since="2 weeks ago" drivers/
+            </div>
+            <p class="paragraph">allows you to browse any commits from the last 2 weeks of commits that modified files
+                under the "drivers" directory. (Note: you can adjust gitk’s fonts by holding down the control key while
+                pressing "-" or "+".)</p>
+            <p class="paragraph">Finally, most commands that take filenames will optionally allow you to precede any
+                filename by a commit, to specify a particular version of the file:</p>
+
+            <div class="code u-margin-bottom-medium">
+                $ git diff v2.5:Makefile HEAD:Makefile.in
+            </div>
+            <p class="paragraph">You can also use git show to see any such file: </p>
+            <div class="code u-margin-bottom-medium">
+                $ git show v2.5:Makefile
+            </div>
+        </div>
+    </main>
+</body>
+<!-- A SMALL SCRIPT FOR DYNAMIC NAVIGATION -->
+<script>
+    // NUMBER OF ALL PAGES
+    var setMaxPageNumber = 7;
+
+
+    var hideAllPages = function (setMaxPageNumber) {
+        for (var i = 1; i <= setMaxPageNumber; i++) {
+            document.querySelector("#sec-" + i).style.display = "none";
+            document.querySelector("#link-" + i).style.background = null;
+        }
+    }
+
+    var closeCurtain = function () {
+        document.querySelector(".header").style.height = "100vh";
+        setTimeout(function () {
+            document.querySelector(".header").style.height = "6rem";
+        }, 400);
+    }
+
+    var turnPage = function (id) {
+        document.querySelector("#link-" + id).addEventListener("click", function () {
+            closeCurtain();
+
+            setTimeout(function () {
+                hideAllPages(setMaxPageNumber);
+            }, 300)
+            setTimeout(function () {
+                document.querySelector("#sec-" + id).style.display = "block";
+                document.querySelector("#link-" + id).style.background = "rgba(129, 156, 169, 0.8)";
+            }, 300)
+        });
+    }
+
+    var initAllPages = function (number) {
+        for (i = 1; i <= number; i++) {
+            turnPage(i);
+        }
+    }
+
+    var initPage = function () {
+        hideAllPages(setMaxPageNumber);
+        document.querySelector("#sec-1").style.display = "block";
+        document.querySelector("#link-1").style.background = "rgba(129, 156, 169, 0.8)";
+    }
+
+    var startApp = function () {
+        initPage();
+        initAllPages(setMaxPageNumber);
+    }
+
+    startApp();
+</script>
+</html>
